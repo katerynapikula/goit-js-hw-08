@@ -83,21 +83,12 @@ function createMarkup(arr) {
 container.addEventListener("click", handleOpenModel);
 
 function handleOpenModel(event) {
-    if (event.currentTarget === event.target) return; 
-    const currentImage = event.target.closest(".gallery-image");
-    const imageId = currentImage.dataset.source;
-    const imageModal = images.find(({ original }) => original === imageId);
+    event.preventDefault();
+    if (!event.target.classList.contains('gallery-image')) return; 
+    const imageModal = event.target.dataset.source;
+    const instance = basicLightbox.create(`<img src="${imageModal}">`);
 
-    const instance = basicLightbox.create(
-    `<div class="modal">
-    <img
-      src="${imageModal.original}"
-      alt="${imageModal.description}"
-    />
-    </div>
-`);
-
-instance.show();
+  instance.show();
 }
 
 
